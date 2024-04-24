@@ -120,21 +120,16 @@
                   <span class="text-gd font-bold text-xl">Solana</span>
                 </div>
 
-                <div
-                  class="bg-black bg-opacity-80 max-w-[1440px] px-4 mx-auto flex md:inline-flex flex-wrap items-center justify-center gap-2 rounded-md mt-4 py-1 md:py-2">
+                <div class="bg-black bg-opacity-80 max-w-[1440px] px-4 mx-auto flex md:inline-flex flex-wrap items-center justify-center gap-2 rounded-md mt-4 py-1 md:py-2">
                   <div class="text-white text-opacity-60"><strong class="gd"></strong> Token Address:</div>
-                  <div id="const-add" data-contract="8rDpPAcXrEHWDbjcMobgYU2UwDhjB62YcatktCWXzmbm"
-                    class="flex items-center gap-2 text-white">
-                    <span class="flex text-white"><span class="md:hidden"></span><span
-                        class="hidden md:inline-block">8rDpPAcXrEHWDbjcMobgYU2UwDhjB62YcatktCWXzmbm</span></span>
-                    <button type="button" onClick="copyMintAddress()"
-                      class="bg-primary bg-opacity-10 rounded-full w-8 h-8 flex items-center justify-center"
-                      title="Copy">
-                      <img src="public/icons/copy-ico.svg" alt="Copy Address"
-                        class="w-4 opacity-70 hover:opacity-100" />
-                    </button>
+                  <div id="const-add" data-contract="8rDpPAcXrEHWDbjcMobgYU2UwDhjB62YcatktCWXzmbm" class="flex items-center gap-2 text-white">
+                      <span class="flex text-white"><span class="md:hidden"></span><span class="hidden md:inline-block">8rDpPAcXrEHWDbjcMobgYU2UwDhjB62YcatktCWXzmbm</span></span>
+                      <button type="button" onClick="copyMintAddress()" class="bg-primary bg-opacity-10 rounded-full w-8 h-8 flex items-center justify-center" title="Copy">
+                          <img src="public/icons/copy-ico.svg" alt="Copy Address" class="w-4 opacity-70 hover:opacity-100" />
+                      </button>
+                      <span id="copyMessage" style="display: none;">Token Address Copied !</span>
                   </div>
-                </div>
+              </div>
               </div>
 
             </div>
@@ -589,9 +584,21 @@
       });
 
       function copyMintAddress() {
-        var copyText = document.getElementById("const-add").getAttribute('data-contract');
-        navigator.clipboard.writeText(copyText)
-      }
+      var copyText = document.getElementById("const-add").getAttribute('data-contract');
+      navigator.clipboard.writeText(copyText)
+      .then(function() {
+        // Text copied successfully, show the message
+        var copyMessage = document.getElementById("copyMessage");
+        copyMessage.style.display = "inline";
+        setTimeout(function() {
+            copyMessage.style.display = "none";
+        }, 3000); // Hide the message after 3 seconds
+      })
+      .catch(function(error) {
+        // Unable to copy text, handle the error if needed
+        console.error('Unable to copy text: ', error);
+      });
+    }
     </script>
 
 
